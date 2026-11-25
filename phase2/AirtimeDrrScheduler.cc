@@ -19,17 +19,31 @@ void AirtimeDrrScheduler::initialize(int stage)
 // AirtimeSchedulerBase.h): getNumQueues(), hasPacket(i), headAirtime(i).
 int AirtimeDrrScheduler::schedulePacket()
 {
-    // Starter code: plain round robin, one frame per non-empty queue in turn.
-    // TODO: turn this into airtime deficit round robin (see the assignment).
     int n = getNumQueues();
-    for (int k = 0; k < n; k++) {
-        int i = (current + k) % n;
+    bool anyPacket = false;
+    for (int i = 0; i < n; i++) {
         if (hasPacket(i)) {
-            current = (i + 1) % n;
-            return i;
+            anyPacket = true;
+            break;
         }
     }
-    return -1;
+    if (!anyPacket)
+        return -1;
+
+    while (true) {
+        if (!hasPacket(current)) {
+            deficit[current] = SIMTIME_ZERO;
+            current = (current + 1) % n;
+        }
+        else if (deficit[current] <= SIMTIME_ZERO) {
+            deficit[current] += quantum;
+            current = (current + 1) % n;
+        }
+        else {
+            deficit[current] -= headAirtime(current);
+            return current;
+        }
+    }
 }
 
 } // namespace ca2
