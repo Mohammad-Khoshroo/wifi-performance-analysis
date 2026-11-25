@@ -1,0 +1,8 @@
+out/
+Makefile
+*.so
+*.dll
+*.o
+*.d
+**/.qtenvrc
+**/*.out
