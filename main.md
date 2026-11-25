@@ -9,7 +9,7 @@ typ:
   margin: narrow
   header:
     style: line
-    start: "گزارش فاز سوم — جابه‌جایی بین APها و ایستگاه چسبنده"
+    start: "تحلیل و ارزیابی عملکرد شبکه‌های Wi-Fi — تمرین کامپیوتری شمارهٔ ۲"
     end: "{section}"
   footer:
     style: line
@@ -22,6 +22,10 @@ figure:
 ---
 
 <include src="phase1/phase1_report.md"></include>
+
+<pagebreak/>
+
+<include src="phase2/phase2_report.md"></include>
 
 <pagebreak/>
 
